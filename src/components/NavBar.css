@@ -1,0 +1,36 @@
+ul {
+  margin-top: 10px;
+  list-style-type: none;
+  border-radius: 30px;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+  height: 60px;
+  width: 70%;
+}
+
+li {
+  float: left;
+  border-right: 1px solid #bbb;
+}
+
+li:last-child {
+  border-right: none;
+}
+
+li .link-tag {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 30px 25px;
+  font-size: 18px;
+  text-decoration: none;
+}
+
+li .link-tag:hover:not(.active) {
+  background-color: #111;
+}
+
+.active {
+  background-color: #04aa6d;
+}
