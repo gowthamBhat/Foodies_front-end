@@ -34,26 +34,24 @@ class Auth extends React.Component {
     const current = isLogginActive ? 'Register' : 'Login'
     const currentActive = isLogginActive ? 'login' : 'register'
     return (
-      <body>
-        <div className="App">
-          <div className="login">
-            <div className="container" ref={(ref) => (this.container = ref)}>
-              {isLogginActive && (
-                <Login containerRef={(ref) => (this.current = ref)} />
-              )}
-              {!isLogginActive && (
-                <Register containerRef={(ref) => (this.current = ref)} />
-              )}
-            </div>
-            <RightSide
-              current={current}
-              currentActive={currentActive}
-              containerRef={(ref) => (this.rightSide = ref)}
-              onClick={this.changeState.bind(this)}
-            />
+      <div className="App">
+        <div className="login">
+          <div className="container" ref={(ref) => (this.container = ref)}>
+            {isLogginActive && (
+              <Login containerRef={(ref) => (this.current = ref)} />
+            )}
+            {!isLogginActive && (
+              <Register containerRef={(ref) => (this.current = ref)} />
+            )}
           </div>
+          <RightSide
+            current={current}
+            currentActive={currentActive}
+            containerRef={(ref) => (this.rightSide = ref)}
+            onClick={this.changeState.bind(this)}
+          />
         </div>
-      </body>
+      </div>
     )
   }
 }

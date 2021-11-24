@@ -1,7 +1,11 @@
 import React from 'react'
 
 function AddRecipes() {
-  return <div></div>
+    return <div>
+        <form>
+            
+      </form>
+  </div>
 }
 
 export default AddRecipes
