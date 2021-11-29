@@ -19,6 +19,11 @@ function NavBar() {
           Login
         </a>
       </li>
+      <li>
+        <a href="/addrecipe" className="link-tag">
+          Add Recipe
+        </a>
+      </li>
       <li style={{ float: 'right' }}>
         <a href="/about" className="link-tag">
           About

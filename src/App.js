@@ -5,6 +5,7 @@ import Auth from './components/auth/Auth'
 import { Routes, Route } from 'react-router-dom'
 import UserDashBoard from './components/UserDashBoard'
 
+import AddRecipes from './components/Recipes/AddRecipes'
 function App() {
   return (
     <div>
@@ -13,6 +14,7 @@ function App() {
 
         <Route path="/login" element={<Auth />} />
         <Route path="/dashboard" element={<UserDashBoard />} />
+        <Route path="/addrecipe" element={<AddRecipes />} />
       </Routes>
       {/*  */}
     </div>
