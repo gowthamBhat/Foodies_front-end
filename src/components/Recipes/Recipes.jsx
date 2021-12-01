@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react'
 import '../../App.css'
 
 import Axios from 'axios'
-import { v4 as uuidv4 } from 'uuid'
-import Recipe from './Recipe'
 import Alert from './Alert'
 import NavBar from './../NavBar'
 import ImageModel from './ImageModel'
+import RecipeView from './RecipeView'
 
 function Recipes() {
   const [query, setQuery] = useState('')
@@ -66,16 +65,13 @@ function Recipes() {
         <input type="submit" value="Search" />
       </form>
       <div className="recipes">
-        {recipes !== [] &&
-          recipes.map((recipe) => (
-            <Recipe
-              key={uuidv4()}
-              setSelectedImg={selectedImg}
-              recipe={recipe}
-            />
-          ))}
+        {recipes !== [] && (
+          <RecipeView setSelectedImg={setSelectedImg} recipes={recipes} />
+        )}
       </div>
-      <ImageModel />
+      {selectedImg && (
+        <ImageModel selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
+      )}
     </div>
   )
 }

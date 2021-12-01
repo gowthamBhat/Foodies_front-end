@@ -2,8 +2,6 @@ import React, { useState } from 'react'
 import RecipeDetails from './RecipeDetails'
 
 const Recipe = ({ recipe }) => {
-  // console.log(recipe)
-
   const [show, setShow] = useState(false)
   const { label, url, ingredients } = recipe
   let addedUrl = `http://localhost:8000/${url}`
