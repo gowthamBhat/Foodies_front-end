@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './AddRecipes.css'
+import axios from 'axios'
 function AddRecipes() {
   const [state, setstate] = useState({
     label: '',
@@ -12,6 +13,34 @@ function AddRecipes() {
     makingDescription: '',
     recipeImage: null
   })
+  const onFormSubmit = async (e) => {
+    e.preventDefault()
+    console.log(state.ingredients)
+
+    try {
+      const fd = new FormData()
+      fd.append('recipeImage', state.recipeImage, state.recipeImage.name)
+      fd.append('label', state.label)
+      fd.append('source', state.source)
+      fd.append('dietlabels', state.dietlabels)
+      fd.append('healthlabels', state.healthlabels)
+      fd.append('ingredients', JSON.stringify(state.ingredients))
+      fd.append('cuisineType', state.cuisineType)
+      fd.append('mealType', state.mealType)
+      fd.append('makingDescription', state.makingDescription)
+
+      // console.log(fd)
+
+      const { data: response } = await axios.post(
+        'http://localhost:8000/recipe',
+        fd
+      )
+      console.log('api response' + response)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const [arrayState, arraySetSate] = useState({
     dietlabels: '',
     healthlabels: '',
@@ -79,14 +108,16 @@ function AddRecipes() {
   const AddingredientsClick = () => {
     let replica = { ...state }
     let arrayreplica = { ...arrayState }
-    replica.ingredients.push(arrayState.ingredients)
+    let ingredientObj = {
+      text: arrayState.ingredients.text,
+      weight: arrayState.ingredients.weight
+    }
+    replica.ingredients.push(ingredientObj)
     setstate(replica)
     arrayreplica.ingredients = { text: '', weight: '' }
 
     arraySetSate(arrayreplica)
   }
-
-  console.log(state.ingredients)
 
   return (
     <div className="recipeForm container">
@@ -282,6 +313,7 @@ function AddRecipes() {
           >
             Add
           </button>
+          {JSON.stringify(state.ingredients)}
         </div>
 
         {/* 
@@ -318,7 +350,12 @@ function AddRecipes() {
           />
         </div>
 
-        <input type="submit" value="Submit" className="inputs submit" />
+        <input
+          type="submit"
+          value="Submit"
+          className="inputs submit"
+          onClick={onFormSubmit}
+        />
       </form>
     </div>
   )

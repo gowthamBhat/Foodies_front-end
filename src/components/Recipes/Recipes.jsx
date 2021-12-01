@@ -6,11 +6,13 @@ import { v4 as uuidv4 } from 'uuid'
 import Recipe from './Recipe'
 import Alert from './Alert'
 import NavBar from './../NavBar'
+import ImageModel from './ImageModel'
 
 function Recipes() {
   const [query, setQuery] = useState('')
   const [recipes, setRecipes] = useState([])
   const [alert, setAlert] = useState('')
+  const [selectedImg, setSelectedImg] = useState(null)
 
   useEffect(async () => {
     getData()
@@ -65,8 +67,15 @@ function Recipes() {
       </form>
       <div className="recipes">
         {recipes !== [] &&
-          recipes.map((recipe) => <Recipe key={uuidv4()} recipe={recipe} />)}
+          recipes.map((recipe) => (
+            <Recipe
+              key={uuidv4()}
+              setSelectedImg={selectedImg}
+              recipe={recipe}
+            />
+          ))}
       </div>
+      <ImageModel />
     </div>
   )
 }
