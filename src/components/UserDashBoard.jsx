@@ -1,9 +1,10 @@
 import React from 'react'
+import NavBar from './NavBar'
 
 function UserDashBoard() {
   return (
-    <div>
-      <h1>User DashBoard</h1>
+    <div className="App">
+      <NavBar />
     </div>
   )
 }

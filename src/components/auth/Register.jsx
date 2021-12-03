@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import LocalStroageContainer from './../LocalStroageContainer'
-
+import { ToastContainer, toast } from 'react-toastify'
 export class Register extends React.Component {
   state = {
     account: { username: '', password: '', phone: '', email: '' },
@@ -23,12 +23,16 @@ export class Register extends React.Component {
         username
       })
       console.log(response)
-      window.location('/')
+      LocalStroageContainer.saveToken(response.headers['x-auth-token'])
+
+      this.props.history.push('/')
     } catch (e) {
       if (e.response && e.response.status === 400) {
+        toast.error('Account Already Exists')
         const errors = { ...this.state.errors }
         errors.email = 'Account Already Exists'
         this.setState({ errors })
+        console.log(this.state.errors)
       }
     }
   }
@@ -37,6 +41,17 @@ export class Register extends React.Component {
 
     return (
       <div className="base-container">
+        <ToastContainer />
+        {/* {this.state.error.email && (
+          <div
+            className="alert alert-danger"
+            role="alert"
+            style={{ width: '250px' }}
+          >
+            <p>Error occured</p>
+            {this.state.error.email}
+          </div>
+        )} */}
         <div className="header">Register </div>
         <div className="content">
           <div className="form">

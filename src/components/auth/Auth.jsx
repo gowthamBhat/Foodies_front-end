@@ -45,7 +45,10 @@ class Auth extends React.Component {
               />
             )}
             {!isLogginActive && (
-              <Register containerRef={(ref) => (this.current = ref)} />
+              <Register
+                history={this.props.history}
+                containerRef={(ref) => (this.current = ref)}
+              />
             )}
           </div>
           <RightSide

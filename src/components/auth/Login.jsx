@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import LocalStroageContainer from './../LocalStroageContainer'
-
+import { ToastContainer, toast } from 'react-toastify'
 export class Login extends React.Component {
   state = {
     account: { email: '', password: '' },
@@ -26,6 +26,8 @@ export class Login extends React.Component {
       this.props.history.push('/')
     } catch (error) {
       if (error.response && error.response.status === 400) {
+        toast.error('Email or Password is Wrong')
+        //error state is not needed now because of toast notifier
         const error = { ...this.state.error }
         error.email = 'Email or Password is Wrong'
         this.setState({ error })
@@ -37,7 +39,8 @@ export class Login extends React.Component {
 
     return (
       <div className="base-container">
-        {error.email && (
+        <ToastContainer />
+        {/* {error.email && (
           <div
             className="alert alert-danger"
             role="alert"
@@ -45,7 +48,7 @@ export class Login extends React.Component {
           >
             {error.email}
           </div>
-        )}
+        )} */}
         <div className="header">Login </div>
         <div className="content">
           <form>

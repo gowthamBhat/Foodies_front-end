@@ -20,7 +20,7 @@ html {
   align-items: center;
 }
 
-h1 {
+/* h1 {
   font-size: 8rem;
   letter-spacing: 0.1rem;
   font-style: italic;
@@ -28,7 +28,7 @@ h1 {
   text-shadow: 0 0.2rem 5rem rgb(119, 115, 115);
   text-transform: uppercase;
   margin: 4rem 0;
-}
+} */
 
 .search-form {
   width: 60rem;

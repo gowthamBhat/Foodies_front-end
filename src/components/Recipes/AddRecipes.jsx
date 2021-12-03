@@ -1,6 +1,9 @@
 import React, { useState } from 'react'
 import './AddRecipes.css'
 import axios from 'axios'
+import LocalStroageContainer from './../LocalStroageContainer'
+import { ToastContainer, toast } from 'react-toastify'
+
 function AddRecipes() {
   const [state, setstate] = useState({
     label: '',
@@ -13,6 +16,18 @@ function AddRecipes() {
     makingDescription: '',
     recipeImage: null
   })
+
+  try {
+    var { name: authorUsername, _id: authorId } =
+      LocalStroageContainer.getCurrentUser()
+    console.log(authorUsername, authorId)
+  } catch (error) {
+    toast.warn(' Login to add Recipes!')
+    setInterval(() => {
+      window.location = '/login'
+    }, 5000)
+  }
+
   const onFormSubmit = async (e) => {
     e.preventDefault()
     console.log(state.ingredients)
@@ -20,6 +35,8 @@ function AddRecipes() {
     try {
       const fd = new FormData()
       fd.append('recipeImage', state.recipeImage, state.recipeImage.name)
+      fd.append('authorUsername', authorUsername)
+      fd.append('authorId', authorId)
       fd.append('label', state.label)
       fd.append('source', state.source)
       fd.append('dietlabels', JSON.stringify(state.dietlabels))
@@ -35,7 +52,7 @@ function AddRecipes() {
         'http://localhost:8000/recipe',
         fd
       )
-      console.log('api response' + response)
+      console.log('api response', response)
     } catch (error) {
       console.log(error)
     }
@@ -121,6 +138,7 @@ function AddRecipes() {
 
   return (
     <div className="recipeForm container">
+      <ToastContainer />
       <form
         style={{
           display: 'flex',

@@ -16,6 +16,7 @@ function ImageModel({ selectedImg, setSelectedImg }) {
       <div className="model-recipe-info">
         <div className="model-recipe-content">
           <p className="model-recipeLabel">{selectedImg.label}</p>
+          <p>author-{selectedImg.authorUsername} </p>
           <p>Recipe Source:{selectedImg.source}</p>
           <p>
             <i> ingredients </i>
