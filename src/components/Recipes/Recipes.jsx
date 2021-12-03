@@ -6,7 +6,7 @@ import Alert from './Alert'
 import NavBar from './../NavBar'
 import ImageModel from './ImageModel'
 import RecipeView from './RecipeView'
-import { Link } from 'react-router-dom'
+
 import LocalStroageContainer from './../LocalStroageContainer'
 
 function Recipes() {

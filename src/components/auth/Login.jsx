@@ -16,7 +16,7 @@ export class Login extends React.Component {
   onSubmitLogin = async () => {
     const { email, password } = this.state.account
     try {
-      const response = await axios.post('http://localhost:8000/auth', {
+      const response = await axios.post('http://localhost:8000/login', {
         email,
         password
       })

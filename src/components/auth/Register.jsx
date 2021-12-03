@@ -16,7 +16,7 @@ export class Register extends React.Component {
     const { username, phone, password, email } = this.state.account
 
     try {
-      const response = await axios.post('http://localhost:8000/login', {
+      const response = await axios.post('http://localhost:8000/signup', {
         email,
         password,
         phone: Number(phone),

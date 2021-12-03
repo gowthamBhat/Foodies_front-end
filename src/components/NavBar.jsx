@@ -1,12 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './NavBar.css'
-import LocalStroageContainer from './LocalStroageContainer'
 
-function NavBar() {
-  const [currentUser, setcurrentUser] = useState(null)
-  useEffect(() => {
-    setcurrentUser(LocalStroageContainer.getCurrentUser())
-  }, [])
+function NavBar({ currentUser }) {
   return (
     <ul>
       {currentUser && (
@@ -26,12 +21,14 @@ function NavBar() {
           </a>
         </li>
       )}
+      {currentUser && (
+        <li style={{ cursor: 'pointer' }}>
+          <a className="link-tag" href="/addrecipe">
+            Add Recipe
+          </a>
+        </li>
+      )}
 
-      <li>
-        <a href="/addrecipe" className="link-tag">
-          Add Recipe
-        </a>
-      </li>
       <li>
         <a href="/about" className="link-tag">
           About
