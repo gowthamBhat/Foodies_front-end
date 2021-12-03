@@ -1,6 +1,8 @@
 import React from 'react'
 
-function UserDashBoard() {
+function UserDashBoard(props) {
+  console.log(props.history)
+
   return (
     <div>
       <h1>User DashBoard</h1>

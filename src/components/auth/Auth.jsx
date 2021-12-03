@@ -1,10 +1,11 @@
 import React from 'react'
 import '../../App.css'
 import { Login, Register } from './AuthHome'
-
+import { history } from 'react-router-dom'
 class Auth extends React.Component {
   constructor(props) {
     super(props)
+
     this.state = {
       isLogginActive: true
     }

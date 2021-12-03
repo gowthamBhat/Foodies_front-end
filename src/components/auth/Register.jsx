@@ -1,5 +1,7 @@
 import React from 'react'
 import axios from 'axios'
+import LocalStroageContainer from './../LocalStroageContainer'
+
 export class Register extends React.Component {
   state = {
     account: { username: '', password: '', phone: '', email: '' },
@@ -21,12 +23,12 @@ export class Register extends React.Component {
         username
       })
       console.log(response)
-      window.location.assign('http://www.google.com')
-    } catch (error) {
-      if (error.response && error.response.status === 400) {
-        const error = { ...this.state.error }
-        error.email = 'Email or Password is Wrong'
-        this.setState({ error })
+      window.location('/')
+    } catch (e) {
+      if (e.response && e.response.status === 400) {
+        const errors = { ...this.state.errors }
+        errors.email = 'Account Already Exists'
+        this.setState({ errors })
       }
     }
   }
