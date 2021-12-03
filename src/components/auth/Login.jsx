@@ -22,10 +22,8 @@ export class Login extends React.Component {
       })
       console.log(response)
       LocalStroageContainer.saveToken(response.headers['x-auth-token'])
-      console.log('passed')
-      this.props.history.push('/')
 
-      // window.location('http://localhost:3000/')
+      this.props.history.push('/')
     } catch (error) {
       if (error.response && error.response.status === 400) {
         const error = { ...this.state.error }
@@ -36,7 +34,6 @@ export class Login extends React.Component {
   }
   render() {
     const { account, error } = this.state
-    console.log(this.props.history)
 
     return (
       <div className="base-container">

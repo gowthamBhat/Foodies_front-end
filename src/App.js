@@ -2,21 +2,19 @@ import React from 'react'
 import './App.css'
 import Recipes from './components/Recipes/Recipes'
 import Auth from './components/auth/Auth'
-import { Routes, Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import UserDashBoard from './components/UserDashBoard'
 
 import AddRecipes from './components/Recipes/AddRecipes'
 function App() {
   return (
     <div>
-      <Routes>
-        <Route path="/" element={<Recipes />} />
-
-        <Route path="/login" element={<Auth />} />
-        <Route path="/dashboard" element={<UserDashBoard />} />
-        <Route path="/addrecipe" element={<AddRecipes />} />
-      </Routes>
-      {/*  */}
+      <Switch>
+        <Route path="/login" exact component={Auth} />
+        <Route path="/dashboard" exact component={UserDashBoard} />
+        <Route path="/addrecipe" exact component={AddRecipes} />
+        <Route path="/" component={Recipes} />
+      </Switch>
     </div>
   )
 }

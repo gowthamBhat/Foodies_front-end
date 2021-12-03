@@ -1,7 +1,7 @@
 import React from 'react'
 import '../../App.css'
 import { Login, Register } from './AuthHome'
-import { history } from 'react-router-dom'
+
 class Auth extends React.Component {
   constructor(props) {
     super(props)
@@ -39,7 +39,10 @@ class Auth extends React.Component {
         <div className="login">
           <div className="container" ref={(ref) => (this.container = ref)}>
             {isLogginActive && (
-              <Login containerRef={(ref) => (this.current = ref)} />
+              <Login
+                history={this.props.history}
+                containerRef={(ref) => (this.current = ref)}
+              />
             )}
             {!isLogginActive && (
               <Register containerRef={(ref) => (this.current = ref)} />
