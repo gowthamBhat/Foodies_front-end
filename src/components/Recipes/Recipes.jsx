@@ -6,16 +6,22 @@ import Alert from './Alert'
 import NavBar from './../NavBar'
 import ImageModel from './ImageModel'
 import RecipeView from './RecipeView'
+import { Link } from 'react-router-dom'
+import LocalStroageContainer from './../LocalStroageContainer'
 
 function Recipes() {
   const [query, setQuery] = useState('')
   const [recipes, setRecipes] = useState([])
   const [alert, setAlert] = useState('')
   const [selectedImg, setSelectedImg] = useState(null)
+  const [currentUser, setCurrentUser] = useState(null)
 
   useEffect(async () => {
     getData()
+    let jwt = LocalStroageContainer.getCurrentUser()
+    setCurrentUser(jwt)
   }, [])
+  console.log(currentUser)
 
   const getData = async () => {
     const { data } = await Axios.get('http://localhost:8000/recipe')
@@ -46,7 +52,7 @@ function Recipes() {
 
   return (
     <div className="App">
-      <NavBar />
+      <NavBar currentUser={currentUser} />
 
       {alert !== '' && <Alert alert={alert} />}
       <form
