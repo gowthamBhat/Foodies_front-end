@@ -97,13 +97,13 @@ html {
 
 .recipe {
   width: 30rem;
-  margin: 3rem;
+  margin: 2rem;
   display: flex;
   flex-direction: column;
-  background-color: #d3d3d3;
-  padding: 2rem;
+  background-color: #04aa6d;
+  padding: 1rem;
   position: relative;
-  border-radius: 0.5rem;
+  border-radius: 20px;
   box-shadow: 2rem 3rem 5rem #aaa;
 }
 
@@ -132,13 +132,19 @@ html {
 }
 
 .recipe button {
-  font-size: 2rem;
+  font-size: 15px;
   text-transform: uppercase;
   color: #fff;
-  background-color: #40b48e;
+  background-color: #000000;
   border: none;
   border-radius: 0.5rem;
   height: 3rem;
+  width: 7rem;
+}
+.recipe .recipe-handle-button-container {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 12px;
 }
 
 .ingredient-list {

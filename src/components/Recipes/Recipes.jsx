@@ -30,7 +30,7 @@ function Recipes() {
 
   const getSearchResults = async () => {
     if (query !== '') {
-      const { data } = await Axios.get(`http://localhost:8000/recipe/${query}`)
+      const { data } = await Axios.get(`http://localhost:8000/search/${query}`)
       // if (!result.data.more) {
       //   return setAlert('No food with such name')
       // }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './AddRecipes.css'
 import axios from 'axios'
 import LocalStroageContainer from './../LocalStroageContainer'
@@ -16,17 +16,22 @@ function AddRecipes() {
     makingDescription: '',
     recipeImage: null
   })
-
-  try {
-    var { name: authorUsername, _id: authorId } =
-      LocalStroageContainer.getCurrentUser()
-    console.log(authorUsername, authorId)
-  } catch (error) {
-    toast.warn(' Login to add Recipes!')
-    setInterval(() => {
-      window.location = '/login'
-    }, 5000)
-  }
+  const [loggedUserDetails, setLoggedUserDetails] = useState({
+    authorUsername: '',
+    authorId: ''
+  })
+  useEffect(() => {
+    try {
+      const { name: authorUsername, _id: authorId } =
+        LocalStroageContainer.getCurrentUser()
+      setLoggedUserDetails({ authorUsername, authorId })
+    } catch (error) {
+      toast.warn(' Login to add Recipes!')
+      setInterval(() => {
+        window.location = '/login'
+      }, 5000)
+    }
+  }, [])
 
   const onFormSubmit = async (e) => {
     e.preventDefault()
@@ -35,8 +40,8 @@ function AddRecipes() {
     try {
       const fd = new FormData()
       fd.append('recipeImage', state.recipeImage, state.recipeImage.name)
-      fd.append('authorUsername', authorUsername)
-      fd.append('authorId', authorId)
+      fd.append('authorUsername', loggedUserDetails.authorUsername)
+      fd.append('authorId', loggedUserDetails.authorId)
       fd.append('label', state.label)
       fd.append('source', state.source)
       fd.append('dietlabels', JSON.stringify(state.dietlabels))
@@ -53,6 +58,7 @@ function AddRecipes() {
         fd
       )
       console.log('api response', response)
+      toast.success('Recipe Added Successfully')
     } catch (error) {
       console.log(error)
     }

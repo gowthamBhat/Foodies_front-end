@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './NavBar.css'
+import LocalStroageContainer from './LocalStroageContainer'
 
-function NavBar({ currentUser }) {
+function NavBar() {
+  const [currentUser, setcurrentUser] = useState(null)
+  useEffect(() => {
+    setcurrentUser(LocalStroageContainer.getCurrentUser())
+  }, [])
   return (
     <ul>
       {currentUser && (
