@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import './AddRecipes.css'
-import axios from 'axios'
+
 import LocalStroageContainer from './../LocalStroageContainer'
 import { ToastContainer, toast } from 'react-toastify'
+import { getRecipe, saveRecipe } from './RecipeServices'
+import NavBar from './../NavBar'
 
 function AddRecipes(props) {
   const [state, setstate] = useState({
@@ -26,8 +28,6 @@ function AddRecipes(props) {
   //use effect to get the current user details
   useEffect(() => {
     try {
-      console.log(props.match.params.id)
-
       const { name: authorUsername, _id: authorId } =
         LocalStroageContainer.getCurrentUser()
       setLoggedUserDetails({ authorUsername, authorId })
@@ -39,32 +39,54 @@ function AddRecipes(props) {
     }
   }, [])
 
+  //use effect to prepoulate the movie, only if the request is coming from update handler from Userdashboard.jsx
+  useEffect(() => {
+    populateMovie()
+  }, [])
+
+  const populateMovie = async () => {
+    try {
+      const recipeId = props.match.params.id
+      // console.log(recipeId);
+
+      if (recipeId === 'new') return
+      //retriving whole recipe document to fetch it to state and populate it
+      const recipe = await getRecipe(recipeId)
+
+      setstate(mapToViewModel(recipe[0]))
+    } catch (error) {
+      if (error.response && error.response.status === 404) {
+        console.log(error)
+      }
+    }
+  }
+
+  //structuring the backend response according to state
+  const mapToViewModel = (recipe) => {
+    return {
+      _id: recipe._id,
+      label: recipe.label,
+      source: recipe.source,
+      dietlabels: recipe.dietLabels,
+      healthlabels: recipe.healthLabels,
+      cuisineType: recipe.cuisineType,
+      ingredients: recipe.ingredients,
+      mealType: recipe.mealType,
+      makingDescription: recipe.makingDescription,
+      recipeImage: null
+    }
+  }
+
   const onFormSubmit = async (e) => {
     e.preventDefault()
-    console.log(state.ingredients)
 
     try {
-      const fd = new FormData()
-      fd.append('recipeImage', state.recipeImage, state.recipeImage.name)
-      fd.append('authorUsername', loggedUserDetails.authorUsername)
-      fd.append('authorId', loggedUserDetails.authorId)
-      fd.append('label', state.label)
-      fd.append('source', state.source)
-      fd.append('dietlabels', JSON.stringify(state.dietlabels))
-      fd.append('healthlabels', JSON.stringify(state.healthlabels))
-      fd.append('ingredients', JSON.stringify(state.ingredients))
-      fd.append('cuisineType', JSON.stringify(state.cuisineType))
-      fd.append('mealType', JSON.stringify(state.mealType))
-      fd.append('makingDescription', state.makingDescription)
+      const response = await saveRecipe(state, loggedUserDetails)
+      console.log('add recipe api response', response)
 
-      // console.log(fd)
-
-      const { data: response } = await axios.post(
-        'http://localhost:8000/recipe',
-        fd
-      )
-      console.log('api response', response)
-      toast.success('Recipe Added Successfully')
+      state._id
+        ? toast.success('Recipe Updated Successfully')
+        : toast.success('Recipe Added Successfully')
     } catch (error) {
       console.log(error)
     }
@@ -149,14 +171,17 @@ function AddRecipes(props) {
   }
 
   return (
-    <div className="recipeForm container">
+    <div className="recipeForm App">
       <ToastContainer />
+      <NavBar />
       <form
+        className="recipe-form"
         style={{
           display: 'flex',
           flexDirection: 'column',
           width: '70%',
-          alignItems: 'center'
+          alignItems: 'center',
+          marginTop: '20px'
         }}
       >
         <label className="addrecipe-labels" htmlFor="label">
@@ -184,24 +209,8 @@ function AddRecipes(props) {
           onChange={stringTypeFieldDataHandler}
           className="inputs"
         />
-        {/* <label className="addrecipe-labels" htmlFor="url">
-          URL
-        </label>
-        <input
-          type="text"
-          id="url"
-          name="url"
-          placeholder="paste url"
-          className="inputs"
-        /> */}
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            margin: '5px 5px'
-          }}
-        >
+
+        <div className="addrecipe-fields-arraytypes">
           <label className="addrecipe-labels" htmlFor="dietlabels">
             diet labels
           </label>
@@ -223,14 +232,7 @@ function AddRecipes(props) {
           </button>
           <p>{String(state.dietlabels)}</p>
         </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            margin: '5px 5px'
-          }}
-        >
+        <div className="addrecipe-fields-arraytypes">
           <label className="addrecipe-labels" htmlFor="healthlabels">
             Health labels
           </label>
@@ -252,14 +254,7 @@ function AddRecipes(props) {
           </button>
           {String(state.healthlabels)}
         </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            margin: '5px 5px'
-          }}
-        >
+        <div className="addrecipe-fields-arraytypes">
           <label className="addrecipe-labels" htmlFor="cuisineType">
             cuisine type
           </label>
@@ -281,14 +276,7 @@ function AddRecipes(props) {
           </button>
           {String(state.cuisineType)}
         </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            margin: '5px 5px'
-          }}
-        >
+        <div className="addrecipe-fields-arraytypes">
           <label className="addrecipe-labels" htmlFor="mealtype">
             meal type
           </label>
@@ -306,14 +294,7 @@ function AddRecipes(props) {
           </button>
           {String(state.mealType)}
         </div>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-evenly',
-            margin: '5px 5px'
-          }}
-        >
+        <div className="addrecipe-fields-arraytypes">
           <label className="addrecipe-labels" htmlFor="ingredients">
             ingredients
           </label>
@@ -343,18 +324,13 @@ function AddRecipes(props) {
           >
             Add
           </button>
-          {JSON.stringify(state.ingredients)}
         </div>
-
-        {/* 
-        <label className="addrecipe-labels" htmlFor="country">
-          Country
-        </label>
-        <select id="country" name="country" className="inputs">
-          <option value="australia">Australia</option>
-          <option value="canada">Canada</option>
-          <option value="usa">USA</option>
-        </select> */}
+        {state.ingredients &&
+          state.ingredients.map((x) => (
+            <span style={{ color: '#45a049', fontSize: 'medium' }}>
+              item:{x.text},content:{x.weight}
+            </span>
+          ))}
         <label className="addrecipe-labels" htmlFor="recipe-description">
           Recipe description
         </label>
@@ -369,7 +345,11 @@ function AddRecipes(props) {
         ></textarea>
 
         <div style={{ margin: '15px 0' }}>
-          <label className="addrecipe-labels" htmlFor="recipeImage">
+          <label
+            className="addrecipe-labels"
+            htmlFor="recipeImage"
+            style={{ marginRight: '5px' }}
+          >
             Add recipe image
           </label>
           <input

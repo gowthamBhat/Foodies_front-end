@@ -1,6 +1,7 @@
 import Axios from 'axios'
 
 const endPoint = 'http://localhost:8000/recipe'
+
 export function saveRecipe(state, loggedUserDetails) {
   const fd = new FormData()
   fd.append('recipeImage', state.recipeImage, state.recipeImage.name)
@@ -15,13 +16,13 @@ export function saveRecipe(state, loggedUserDetails) {
   fd.append('mealType', JSON.stringify(state.mealType))
   fd.append('makingDescription', state.makingDescription)
   if (state._id) {
-    // const body = { ...state }
-    // delete body._id
     return Axios.put(`${endPoint}/${state._id}`, fd)
   }
   return Axios.post(endPoint, fd)
 }
 export async function getRecipe(id) {
-  const { data } = await Axios.get(`${endPoint}/${id}`)
+  console.log(id)
+
+  const { data } = await Axios.get(`${endPoint}/byId/${id}`)
   return data
 }

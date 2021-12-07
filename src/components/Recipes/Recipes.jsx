@@ -16,7 +16,7 @@ function Recipes() {
   const [selectedImg, setSelectedImg] = useState(null)
   const [currentUser, setCurrentUser] = useState(null)
 
-  useEffect(async () => {
+  useEffect(() => {
     getData()
     let jwt = LocalStroageContainer.getCurrentUser()
     setCurrentUser(jwt)
