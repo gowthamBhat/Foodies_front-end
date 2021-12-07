@@ -28,7 +28,7 @@ function NavBar() {
       )}
       {currentUser && (
         <li style={{ cursor: 'pointer' }}>
-          <a className="link-tag" href="/addrecipe">
+          <a className="link-tag" href="/addrecipe/new">
             Add Recipe
           </a>
         </li>

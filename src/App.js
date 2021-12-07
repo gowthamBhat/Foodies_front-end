@@ -8,6 +8,7 @@ import UserDashBoard from './components/UserDashBoard'
 import AddRecipes from './components/Recipes/AddRecipes'
 
 import NotFound from './components/NotFound'
+import Check from './components/test/Check'
 
 function App() {
   return (
@@ -15,10 +16,11 @@ function App() {
       <Switch>
         <Route path="/login" component={Auth} />
         <Route path="/dashboard" component={UserDashBoard} />
-        <Route path="/addrecipe" component={AddRecipes} />
+        <Route path="/addrecipe/:id" component={AddRecipes} />
+        <Route path="/check" component={Check} />
         <Route path="/notfound" component={NotFound} />
 
-        <Route path="/" exact component={Recipes} />
+        <Route path="/" component={Recipes} />
         <Redirect to="/notfound" />
       </Switch>
     </div>

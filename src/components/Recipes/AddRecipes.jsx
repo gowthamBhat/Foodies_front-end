@@ -4,7 +4,7 @@ import axios from 'axios'
 import LocalStroageContainer from './../LocalStroageContainer'
 import { ToastContainer, toast } from 'react-toastify'
 
-function AddRecipes() {
+function AddRecipes(props) {
   const [state, setstate] = useState({
     label: '',
     source: '',
@@ -16,12 +16,18 @@ function AddRecipes() {
     makingDescription: '',
     recipeImage: null
   })
+
+  //state to save current user details
   const [loggedUserDetails, setLoggedUserDetails] = useState({
     authorUsername: '',
     authorId: ''
   })
+
+  //use effect to get the current user details
   useEffect(() => {
     try {
+      console.log(props.match.params.id)
+
       const { name: authorUsername, _id: authorId } =
         LocalStroageContainer.getCurrentUser()
       setLoggedUserDetails({ authorUsername, authorId })

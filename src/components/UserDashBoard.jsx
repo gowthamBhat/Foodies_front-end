@@ -28,6 +28,7 @@ function UserDashBoard() {
   console.log(recipes)
   const updateHandler = (recipe_id) => {
     console.log('update handler called', recipe_id)
+    window.location = `/addrecipe/${recipe_id}`
   }
   const deleteHandler = async (recipe_id) => {
     const previousRecipeState = recipes
