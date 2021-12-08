@@ -64,3 +64,18 @@ code {
   font-size: medium;
   word-wrap: break-word;
 }
+.userdash-nav {
+  display: flex;
+  gap: 15px;
+}
+.userdash-nav a {
+  font-size: large;
+  border-radius: 15px;
+  background-color: #04aa6d;
+  color: white;
+  border: 2px solid #000;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+}

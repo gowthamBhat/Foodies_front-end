@@ -1,20 +1,16 @@
-import React, { useEffect, useState } from 'react'
-import NavBar from './NavBar'
-import LocalStroageContainer from './LocalStroageContainer'
+import ImageModel from './../Recipes/ImageModel'
+import RecipeView from './../Recipes/RecipeView'
+import LocalStroageContainer from './../LocalStroageContainer'
+import { toast } from 'react-toastify'
 import axios from 'axios'
-import RecipeView from './Recipes/RecipeView'
-import ImageModel from './Recipes/ImageModel'
-import { ToastContainer, toast } from 'react-toastify'
-import { Link, Route, Switch } from 'react-router-dom'
-import WishList from './Recipes/WishList'
-
-function UserDashBoard() {
+import React, { useEffect, useState } from 'react'
+function PublishedRecipes(props) {
   const [recipes, setrecipes] = useState([])
-  const [currentUser, setcurrentUser] = useState(null)
+  // const [currentUser, setcurrentUser] = useState(null)
   const [selectedImg, setSelectedImg] = useState(null)
   useEffect(() => {
     let jwt = LocalStroageContainer.getCurrentUser()
-    setcurrentUser(jwt)
+    // setcurrentUser(jwt)
     getUserSpecificRecipe(jwt)
   }, [])
   const getUserSpecificRecipe = async (token) => {
@@ -27,10 +23,11 @@ function UserDashBoard() {
       console.log(error)
     }
   }
-  console.log(recipes)
+
   const updateHandler = (recipe_id) => {
     console.log('update handler called', recipe_id)
-    window.location = `/addrecipe/${recipe_id}`
+    props.history.push(`/addrecipe/${recipe_id}`)
+    // window.location = `/addrecipe/${recipe_id}`
   }
   const deleteHandler = async (recipe_id) => {
     const previousRecipeState = recipes
@@ -47,18 +44,28 @@ function UserDashBoard() {
       setrecipes(previousRecipeState)
     }
   }
+  const publishedRecipeStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignContent: 'space-between',
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
   return (
-    <div className="App">
-      <ToastContainer />
-
-      <Route path="/dashboard/wishlist" component={WishList} />
-
-      <h2
-        style={{ fontFamily: 'monospace', marginTop: '5px', fontSize: '20px' }}
-      >
-        Number of Recipes published {recipes.length}
-      </h2>
-      <div className="recipes">
+    <div>
+      <center>
+        <h2
+          style={{
+            fontFamily: 'monospace',
+            marginTop: '15px',
+            fontSize: '20px'
+          }}
+        >
+          Number of Recipes published {recipes.length}
+        </h2>
+      </center>
+      <div className="" style={publishedRecipeStyle}>
         {recipes !== [] && (
           <RecipeView
             setSelectedImg={setSelectedImg}
@@ -75,4 +82,4 @@ function UserDashBoard() {
   )
 }
 
-export default UserDashBoard
+export default PublishedRecipes
