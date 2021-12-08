@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './AddRecipes.css'
-
+import { v4 as uuidv4 } from 'uuid'
 import LocalStroageContainer from './../LocalStroageContainer'
 import { ToastContainer, toast } from 'react-toastify'
 import { getRecipe, saveRecipe } from './RecipeServices'
@@ -169,11 +169,16 @@ function AddRecipes(props) {
 
     arraySetSate(arrayreplica)
   }
+  const clearArrayFields = (event) => {
+    let copyOFstate = { ...state }
+    copyOFstate[event.target.name] = []
+    setstate(copyOFstate)
+  }
 
   return (
     <div className="recipeForm App">
       <ToastContainer />
-      <NavBar />
+
       <form
         className="recipe-form"
         style={{
@@ -210,10 +215,10 @@ function AddRecipes(props) {
           className="inputs"
         />
 
+        <label className="addrecipe-labels" htmlFor="dietlabels">
+          diet labels
+        </label>
         <div className="addrecipe-fields-arraytypes">
-          <label className="addrecipe-labels" htmlFor="dietlabels">
-            diet labels
-          </label>
           <input
             type="text"
             id="dietlabels"
@@ -223,19 +228,18 @@ function AddRecipes(props) {
             placeholder="type labels"
             className="inputs"
           />
-          <button
-            style={{ width: '40px' }}
-            type="button"
-            onClick={addDietLabels}
-          >
+          <button type="button" onClick={addDietLabels}>
             Add
+          </button>
+          <button type="button" name="dietlabels" onClick={clearArrayFields}>
+            Clear
           </button>
           <p>{String(state.dietlabels)}</p>
         </div>
+        <label className="addrecipe-labels" htmlFor="healthlabels">
+          Health labels
+        </label>
         <div className="addrecipe-fields-arraytypes">
-          <label className="addrecipe-labels" htmlFor="healthlabels">
-            Health labels
-          </label>
           <input
             type="text"
             value={arrayState.healthlabels}
@@ -245,19 +249,18 @@ function AddRecipes(props) {
             placeholder="health lables"
             className="inputs"
           />
-          <button
-            style={{ width: '40px' }}
-            type="button"
-            onClick={addHealthLables}
-          >
+          <button type="button" onClick={addHealthLables}>
             Add
+          </button>
+          <button type="button" name="healthlabels" onClick={clearArrayFields}>
+            Clear
           </button>
           {String(state.healthlabels)}
         </div>
+        <label className="addrecipe-labels" htmlFor="cuisineType">
+          cuisine type
+        </label>
         <div className="addrecipe-fields-arraytypes">
-          <label className="addrecipe-labels" htmlFor="cuisineType">
-            cuisine type
-          </label>
           <input
             type="text"
             id="cuisineType"
@@ -267,19 +270,18 @@ function AddRecipes(props) {
             placeholder="add cautions"
             className="inputs"
           />
-          <button
-            style={{ width: '40px' }}
-            type="button"
-            onClick={addcuisineType}
-          >
+          <button type="button" onClick={addcuisineType}>
             Add
+          </button>
+          <button type="button" name="cuisineType" onClick={clearArrayFields}>
+            Clear
           </button>
           {String(state.cuisineType)}
         </div>
+        <label className="addrecipe-labels" htmlFor="mealtype">
+          meal type
+        </label>
         <div className="addrecipe-fields-arraytypes">
-          <label className="addrecipe-labels" htmlFor="mealtype">
-            meal type
-          </label>
           <input
             type="text"
             id="mealtype"
@@ -289,15 +291,18 @@ function AddRecipes(props) {
             placeholder="add cautions"
             className="inputs"
           />
-          <button style={{ width: '40px' }} type="button" onClick={addmealType}>
+          <button type="button" onClick={addmealType}>
             Add
+          </button>
+          <button type="button" name="mealType" onClick={clearArrayFields}>
+            Clear
           </button>
           {String(state.mealType)}
         </div>
+        <label className="addrecipe-labels" htmlFor="ingredients">
+          ingredients
+        </label>
         <div className="addrecipe-fields-arraytypes">
-          <label className="addrecipe-labels" htmlFor="ingredients">
-            ingredients
-          </label>
           <input
             type="text"
             id="ingredients"
@@ -318,17 +323,23 @@ function AddRecipes(props) {
             className="inputs"
           />
           <button
-            style={{ width: '50px', marginLeft: '7px' }}
+            style={{ marginLeft: '5px' }}
             type="button"
             onClick={AddingredientsClick}
           >
             Add
           </button>
+          <button type="button" name="ingredients" onClick={clearArrayFields}>
+            Clear
+          </button>
         </div>
         {state.ingredients &&
           state.ingredients.map((x) => (
-            <span style={{ color: '#45a049', fontSize: 'medium' }}>
-              item:{x.text},content:{x.weight}
+            <span
+              key={uuidv4()}
+              style={{ color: '#45a049', fontSize: 'medium' }}
+            >
+              item:{x.text},quantity:{x.weight}
             </span>
           ))}
         <label className="addrecipe-labels" htmlFor="recipe-description">

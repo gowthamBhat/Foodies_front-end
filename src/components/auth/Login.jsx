@@ -22,8 +22,9 @@ export class Login extends React.Component {
       })
       console.log(response)
       LocalStroageContainer.saveToken(response.headers['x-auth-token'])
-
-      this.props.history.push('/')
+      window.location = '/'
+      // window.location.reload(false)
+      // this.props.history.push('/')
     } catch (error) {
       if (error.response && error.response.status === 400) {
         toast.error('Email or Password is Wrong')

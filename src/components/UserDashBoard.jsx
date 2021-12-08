@@ -5,6 +5,8 @@ import axios from 'axios'
 import RecipeView from './Recipes/RecipeView'
 import ImageModel from './Recipes/ImageModel'
 import { ToastContainer, toast } from 'react-toastify'
+import { Link, Route, Switch } from 'react-router-dom'
+import WishList from './Recipes/WishList'
 
 function UserDashBoard() {
   const [recipes, setrecipes] = useState([])
@@ -48,7 +50,9 @@ function UserDashBoard() {
   return (
     <div className="App">
       <ToastContainer />
-      <NavBar currentUser={currentUser} />
+
+      <Route path="/dashboard/wishlist" component={WishList} />
+
       <h2
         style={{ fontFamily: 'monospace', marginTop: '5px', fontSize: '20px' }}
       >

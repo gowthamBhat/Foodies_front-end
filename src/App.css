@@ -41,6 +41,7 @@ html {
   margin-bottom: 5rem;
   box-shadow: 1rem 2rem 5rem #aaa;
   position: relative;
+  top: -40px;
 }
 
 .alert {

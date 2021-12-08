@@ -24,8 +24,8 @@ export class Register extends React.Component {
       })
       console.log(response)
       LocalStroageContainer.saveToken(response.headers['x-auth-token'])
-
-      this.props.history.push('/')
+      window.location = '/'
+      // this.props.history.push('/')
     } catch (e) {
       if (e.response && e.response.status === 400) {
         toast.error('Account Already Exists')

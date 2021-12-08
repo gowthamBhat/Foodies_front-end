@@ -8,7 +8,9 @@ ul {
   height: 60px;
   width: 70%;
 }
-
+.navbar-main {
+  margin-top: 50px;
+}
 li {
   float: left;
   border-right: 1px solid #bbb;

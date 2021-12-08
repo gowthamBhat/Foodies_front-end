@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './NavBar.css'
 import LocalStroageContainer from './LocalStroageContainer'
+import { Link } from 'react-router-dom'
 
 function NavBar() {
   const [currentUser, setcurrentUser] = useState(null)
@@ -8,58 +9,62 @@ function NavBar() {
     setcurrentUser(LocalStroageContainer.getCurrentUser())
   }, [])
   return (
-    <ul>
-      {currentUser && (
+    <div className="navbar-main">
+      <ul>
+        {currentUser && (
+          <li>
+            <span className="link-tag active">
+              Welcome {currentUser.name}!!
+            </span>
+          </li>
+        )}
         <li>
-          <span className="link-tag active">Welcome {currentUser.name}!!</span>
+          <Link className="link-tag" to="/">
+            Home
+          </Link>
         </li>
-      )}
-      <li>
-        <a className="link-tag" href="/">
-          Home
-        </a>
-      </li>
-      {currentUser && (
-        <li style={{ cursor: 'pointer' }}>
-          <a className="link-tag" href="/dashboard">
-            Profile
-          </a>
-        </li>
-      )}
-      {currentUser && (
-        <li style={{ cursor: 'pointer' }}>
-          <a className="link-tag" href="/addrecipe/new">
-            Add Recipe
-          </a>
-        </li>
-      )}
+        {currentUser && (
+          <li style={{ cursor: 'pointer' }}>
+            <Link className="link-tag" to="/dashboard">
+              Profile
+            </Link>
+          </li>
+        )}
+        {currentUser && (
+          <li style={{ cursor: 'pointer' }}>
+            <Link className="link-tag" to="/addrecipe/new">
+              Add Recipe
+            </Link>
+          </li>
+        )}
 
-      <li>
-        <a href="/about" className="link-tag">
-          About
-        </a>
-      </li>
-      {!currentUser && (
-        <li style={{ float: 'right', cursor: 'pointer' }}>
-          <a href="/login" className="link-tag">
-            Login
-          </a>
+        <li>
+          <Link to="/about" className="link-tag">
+            About
+          </Link>
         </li>
-      )}
-      {currentUser && (
-        <li style={{ float: 'right', cursor: 'pointer' }}>
-          <span
-            className="link-tag"
-            onClick={() => {
-              localStorage.removeItem('token')
-              window.location = '/'
-            }}
-          >
-            Logout
-          </span>
-        </li>
-      )}
-    </ul>
+        {!currentUser && (
+          <li style={{ float: 'right', cursor: 'pointer' }}>
+            <Link to="/login" className="link-tag">
+              Login
+            </Link>
+          </li>
+        )}
+        {currentUser && (
+          <li style={{ float: 'right', cursor: 'pointer' }}>
+            <span
+              className="link-tag"
+              onClick={() => {
+                localStorage.removeItem('token')
+                window.location = '/'
+              }}
+            >
+              Logout
+            </span>
+          </li>
+        )}
+      </ul>
+    </div>
   )
 }
 

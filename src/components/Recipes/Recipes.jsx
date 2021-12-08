@@ -8,6 +8,7 @@ import ImageModel from './ImageModel'
 import RecipeView from './RecipeView'
 
 import LocalStroageContainer from './../LocalStroageContainer'
+import { toast, ToastContainer } from 'react-toastify'
 
 function Recipes() {
   const [query, setQuery] = useState('')
@@ -39,7 +40,7 @@ function Recipes() {
       setQuery('')
       setAlert('')
     } else {
-      setAlert('Please fill the form')
+      toast.warn('please fill the search box')
     }
   }
 
@@ -52,7 +53,7 @@ function Recipes() {
 
   return (
     <div className="App">
-      <NavBar currentUser={currentUser} />
+      <ToastContainer />
 
       {alert !== '' && <Alert alert={alert} />}
       <form
@@ -67,8 +68,13 @@ function Recipes() {
           value={query}
           autoComplete="off"
           placeholder="Search Food"
+          style={{ backgroundColor: '#04AA6D', color: 'white' }}
         />
-        <input type="submit" value="Search" />
+        <input
+          type="submit"
+          value="Search"
+          style={{ backgroundColor: '#333333' }}
+        />
       </form>
       <div className="recipes">
         {recipes !== [] && (

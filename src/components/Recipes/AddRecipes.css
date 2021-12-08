@@ -20,6 +20,8 @@ textarea {
   width: 40%;
 }
 .recipe-form button {
+  width: 55px;
+
   background-color: #4caf50; /* Green */
   border: none;
   border-radius: 8px;
@@ -51,7 +53,7 @@ input[type='submit']:hover {
 .recipeForm {
   margin-top: 0;
   border-radius: 5px;
-  background-color: #f2f2f2;
+
   padding: 20px;
 }
 .addrecipe-labels {
@@ -62,6 +64,7 @@ input[type='submit']:hover {
 .addrecipe-fields-arraytypes {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: center;
+  width: 100%;
   margin: 5px 5px;
 }
