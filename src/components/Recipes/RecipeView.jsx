@@ -2,7 +2,15 @@ import React from 'react'
 
 import { v4 as uuidv4 } from 'uuid'
 
-function RecipeView({ recipes, setSelectedImg, deleteHandler, updateHandler }) {
+function RecipeView({
+  recipes,
+  setSelectedImg,
+  deleteHandler,
+  updateHandler,
+  onLike,
+  onDislike,
+  currentUser
+}) {
   let serverAddress = `http://localhost:8000/`
   return (
     <>
@@ -16,6 +24,25 @@ function RecipeView({ recipes, setSelectedImg, deleteHandler, updateHandler }) {
             width="300"
             onClick={() => setSelectedImg(recipe)}
           />
+          {/* <i class="fas fa-thumbs-up"></i> */}
+          <div className="recipe-handle-button-container">
+            {currentUser &&
+              (recipe.likes.includes(currentUser._id) ? (
+                <button onClick={() => onDislike(recipe._id)}>Dislike</button>
+              ) : (
+                <button onClick={() => onLike(recipe._id)}>Like</button>
+              ))}
+
+            {currentUser && (
+              <div style={{ display: 'flex', gap: '5px' }}>
+                <span className="likes-label">Likes-{recipe.likes.length}</span>
+                <span className="likes-label">
+                  coins-{recipe.likes.length * 2}
+                </span>
+              </div>
+            )}
+          </div>
+
           {(deleteHandler || updateHandler) && (
             <div className="recipe-handle-button-container">
               {updateHandler && (

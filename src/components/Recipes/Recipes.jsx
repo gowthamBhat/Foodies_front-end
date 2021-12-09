@@ -27,6 +27,51 @@ function Recipes() {
     const { data } = await Axios.get('http://localhost:8000/recipe')
     setRecipes(data)
   }
+  const onLike = async (recipeId) => {
+    try {
+      let { data: liked } = await Axios.put(
+        'http://localhost:8000/recipe/api/like',
+        {
+          recipeId: recipeId,
+          userId: currentUser._id
+        }
+      )
+      //comparing old recipe with new updated like recipe if that old recipe matches with new liked recipe i will replace it with new
+      //otherwise i will put the old recipes
+      let newState = recipes.map((oldrecipe) => {
+        if (liked._id === oldrecipe._id) return liked
+        return oldrecipe
+      })
+      setRecipes(newState)
+      console.log('liked recipe', liked)
+    } catch (error) {
+      toast.error('error occured while liking')
+      console.log('catched error while liking', error)
+    }
+
+    // console.log('onlike called', recipeId, currentUser._id)
+  }
+  const onDislike = async (recipeId) => {
+    try {
+      let { data: disliked } = await Axios.put(
+        'http://localhost:8000/recipe/api/unlike',
+        {
+          recipeId: recipeId,
+          userId: currentUser._id
+        }
+      )
+      let newState = recipes.map((oldrecipe) => {
+        if (disliked._id === oldrecipe._id) return disliked
+        return oldrecipe
+      })
+      setRecipes(newState)
+      console.log('unliked recipe', disliked)
+    } catch (error) {
+      toast.error('error occured while unliking')
+      console.log('catched error while un liking', error)
+    }
+    // console.log('ondislike called', recipeId, currentUser._id)
+  }
 
   const getSearchResults = async () => {
     if (query !== '') {
@@ -77,7 +122,13 @@ function Recipes() {
       </form>
       <div className="recipes">
         {recipes !== [] && (
-          <RecipeView setSelectedImg={setSelectedImg} recipes={recipes} />
+          <RecipeView
+            setSelectedImg={setSelectedImg}
+            recipes={recipes}
+            onLike={onLike}
+            onDislike={onDislike}
+            currentUser={currentUser}
+          />
         )}
       </div>
       {selectedImg && (
