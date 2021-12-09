@@ -24,14 +24,22 @@ function RecipeView({
             width="300"
             onClick={() => setSelectedImg(recipe)}
           />
-          {/* <i class="fas fa-thumbs-up"></i> */}
+
           <div className="recipe-handle-button-container">
             {currentUser &&
               (recipe.likes.includes(currentUser._id) ? (
-                <button onClick={() => onDislike(recipe._id)}>Dislike</button>
+                <i
+                  onClick={() => onDislike(recipe._id)}
+                  className="fas fa-heart fa-3x"
+                ></i>
               ) : (
-                <button onClick={() => onLike(recipe._id)}>Like</button>
+                <i
+                  className="far fa-heart fa-3x"
+                  onClick={() => onLike(recipe._id)}
+                ></i>
               ))}
+            {/* <button onClick={() => onDislike(recipe._id)}>Dislike</button> */}
+            {/* <button onClick={() => onLike(recipe._id)}>Like</button> */}
 
             {currentUser && (
               <div style={{ display: 'flex', gap: '5px' }}>
