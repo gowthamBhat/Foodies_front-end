@@ -13,6 +13,16 @@ function getCurrentUser() {
     return null
   }
 }
+function isAdmin() {
+  try {
+    const embeddedToken = localStorage.getItem(tokenKey)
+    let data = jwt(embeddedToken)
+    return data.isAdmin
+  } catch (error) {
+    return null
+  }
+}
+
 function saveToken(token) {
   localStorage.setItem(tokenKey, token)
 }
@@ -24,7 +34,8 @@ const LocalStroageContainer = {
   loggingOut,
   getCurrentUser,
   saveToken,
-  getJwt
+  getJwt,
+  isAdmin
 }
 
 export default LocalStroageContainer

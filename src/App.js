@@ -12,6 +12,7 @@ import Check from './components/test/Check'
 
 import NavBar from './components/NavBar'
 import { ToastContainer } from 'react-toastify'
+import AdminDashboard from './components/admin/AdminDashboard'
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
       <Switch>
         <Route path="/login" component={Auth} />
         <Route path="/dashboard" component={UserDashBoard} />
+        <Route path="/admin" component={AdminDashboard} />
+
         <Route path="/addrecipe/:id" component={AddRecipes} />
         <Route path="/check" component={Check} />
         <Route path="/notfound" component={NotFound} />

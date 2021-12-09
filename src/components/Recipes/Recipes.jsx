@@ -3,7 +3,7 @@ import '../../App.css'
 
 import Axios from 'axios'
 import Alert from './Alert'
-import NavBar from './../NavBar'
+
 import ImageModel from './ImageModel'
 import RecipeView from './RecipeView'
 
@@ -22,7 +22,6 @@ function Recipes() {
     let jwt = LocalStroageContainer.getCurrentUser()
     setCurrentUser(jwt)
   }, [])
-  console.log(currentUser)
 
   const getData = async () => {
     const { data } = await Axios.get('http://localhost:8000/recipe')

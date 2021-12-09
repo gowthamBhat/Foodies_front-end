@@ -1,29 +1,34 @@
 import React, { useState, useEffect } from 'react'
-import LocalStroageContainer from './../LocalStroageContainer'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 import RecipeView from './../Recipes/RecipeView'
 import ImageModel from './../Recipes/ImageModel'
-
-function WishList() {
+function AllRecipes() {
   const [recipes, setrecipes] = useState([])
   const [selectedImg, setSelectedImg] = useState(null)
+
   useEffect(() => {
-    let jwt = LocalStroageContainer.getCurrentUser()
-    // setcurrentUser(jwt)
-    getBookmarkedMovies(jwt)
+    getAllRecipes()
   }, [])
-
-  const getBookmarkedMovies = async ({ _id, name }) => {
+  const getAllRecipes = async () => {
+    const { data } = await axios.get('http://localhost:8000/recipe')
+    setrecipes(data)
+  }
+  const deleteHandler = async (recipe_id) => {
+    const previousRecipeState = recipes
+    const recipe = recipes.filter((x) => x._id !== recipe_id)
+    setrecipes(recipe)
     try {
-      const { data } = await axios.get(`http://localhost:8000/wishlist/${_id}`)
-      console.log('wishlist data', data)
-
-      setrecipes(data)
-    } catch (error) {
-      console.log('error from wishlist', error)
+      const result = await axios.delete(
+        `http://localhost:8000/recipe/${recipe_id}`
+      )
+      toast.success('Post deleted')
+      console.log(result)
+    } catch (e) {
+      toast.error('Something went wrong while Deleting Movie')
+      setrecipes(previousRecipeState)
     }
   }
-  console.log('wishList state', recipes)
   const publishedRecipeStyle = {
     display: 'flex',
     flexDirection: 'row',
@@ -32,6 +37,8 @@ function WishList() {
     justifyContent: 'center',
     alignItems: 'center'
   }
+  //   console.log('recipe from admin dash', recipe)
+
   return (
     <div>
       <center>
@@ -42,14 +49,20 @@ function WishList() {
             fontSize: '20px'
           }}
         >
-          wishList Number of Recipes Bookmarked {recipes.length}
+          Total Recipes {recipes.length}
         </h2>
       </center>
+
       <div className="" style={publishedRecipeStyle}>
         {recipes !== [] && (
-          <RecipeView setSelectedImg={setSelectedImg} recipes={recipes} />
+          <RecipeView
+            setSelectedImg={setSelectedImg}
+            recipes={recipes}
+            deleteHandler={deleteHandler}
+          />
         )}
       </div>
+
       {selectedImg && (
         <ImageModel selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
       )}
@@ -57,4 +70,4 @@ function WishList() {
   )
 }
 
-export default WishList
+export default AllRecipes

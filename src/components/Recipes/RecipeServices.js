@@ -26,3 +26,7 @@ export async function getRecipe(id) {
   const { data } = await Axios.get(`${endPoint}/byId/${id}`)
   return data
 }
+const getAllRecipes = async () => {
+  const { data } = await Axios.get('http://localhost:8000/recipe')
+  return data
+}

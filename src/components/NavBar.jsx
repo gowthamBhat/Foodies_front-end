@@ -8,6 +8,7 @@ function NavBar() {
   useEffect(() => {
     setcurrentUser(LocalStroageContainer.getCurrentUser())
   }, [])
+
   return (
     <div className="navbar-main">
       <ul>
@@ -18,6 +19,7 @@ function NavBar() {
             </span>
           </li>
         )}
+
         <li>
           <Link className="link-tag" to="/">
             Home
@@ -34,6 +36,13 @@ function NavBar() {
           <li style={{ cursor: 'pointer' }}>
             <Link className="link-tag" to="/addrecipe/new">
               Add Recipe
+            </Link>
+          </li>
+        )}
+        {LocalStroageContainer.isAdmin() && (
+          <li style={{ cursor: 'pointer' }}>
+            <Link className="link-tag" to="/admin">
+              Admin
             </Link>
           </li>
         )}

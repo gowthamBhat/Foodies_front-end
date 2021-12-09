@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { ToastContainer } from 'react-toastify'
 import { Link, Route } from 'react-router-dom'
 
 import WishList from './WishList'

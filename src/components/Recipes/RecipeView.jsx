@@ -16,15 +16,17 @@ function RecipeView({ recipes, setSelectedImg, deleteHandler, updateHandler }) {
             width="300"
             onClick={() => setSelectedImg(recipe)}
           />
-          {deleteHandler && updateHandler && (
+          {(deleteHandler || updateHandler) && (
             <div className="recipe-handle-button-container">
-              <button
-                onClick={() => {
-                  updateHandler(recipe._id)
-                }}
-              >
-                Update
-              </button>
+              {updateHandler && (
+                <button
+                  onClick={() => {
+                    updateHandler(recipe._id)
+                  }}
+                >
+                  Update
+                </button>
+              )}
               <button
                 onClick={() => {
                   deleteHandler(recipe._id)

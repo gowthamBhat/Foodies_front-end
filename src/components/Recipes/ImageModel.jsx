@@ -20,9 +20,14 @@ function ImageModel({ selectedImg, setSelectedImg }) {
         recipeId: recipe_id
       })
       toast.success('recipe added to wish list')
-      console.log('wishlist APi response', response)
+      console.log('imahe model response', response)
     } catch (error) {
-      toast.warn(' Login to add WishList!')
+      if (error.response && error.response.status === 403) {
+        toast.warn('already added to wishlist')
+      } else {
+        toast.warn(' Login to add WishList!')
+      }
+      console.log('error from image model', error)
     }
   }
   return (
