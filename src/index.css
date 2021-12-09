@@ -109,6 +109,7 @@ code {
   text-align: center;
   text-decoration: none;
   display: inline-block;
+  cursor: pointer;
 }
 .allusers-container {
   margin-top: -60px;

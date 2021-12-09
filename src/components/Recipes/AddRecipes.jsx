@@ -267,7 +267,7 @@ function AddRecipes(props) {
             value={arrayState.cuisineType}
             onChange={arrayElementSeparateStateHandler}
             name="cuisineType"
-            placeholder="add cautions"
+            placeholder="add cuisine"
             className="inputs"
           />
           <button type="button" onClick={addcuisineType}>
@@ -288,7 +288,7 @@ function AddRecipes(props) {
             name="mealType"
             value={arrayState.mealType}
             onChange={arrayElementSeparateStateHandler}
-            placeholder="add cautions"
+            placeholder="meal type"
             className="inputs"
           />
           <button type="button" onClick={addmealType}>

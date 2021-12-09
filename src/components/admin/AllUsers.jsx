@@ -7,6 +7,7 @@ function AllUsers() {
   useEffect(() => {
     getAllUsers()
   }, [])
+  //get all user list after loading
   const getAllUsers = async () => {
     try {
       const { data } = await axios.get('http://localhost:8000/signup')
@@ -15,7 +16,22 @@ function AllUsers() {
       console.log('error in admin dashboard while getting all users', error)
     }
   }
-  console.log('all users', users)
+
+  //delete user handle
+  const deleteUserHandler = async (user_id) => {
+    try {
+      var prevState = { ...users }
+      let output = users.filter((x) => x._id !== user_id)
+      setUsers(output)
+
+      await axios.delete(`http://localhost:8000/signup/${user_id}`)
+      toast.success('User deleted Successfully')
+    } catch (error) {
+      toast.error('error while deleting user')
+      setUsers(prevState)
+      console.log('user delete error', error)
+    }
+  }
 
   return (
     <div className="App">
@@ -36,8 +52,15 @@ function AllUsers() {
           {users.length > 0 &&
             users.map((x) => (
               <div key={uuidv4()} className="admin-dash-user">
-                <p className="admin-dash-label">{x.email}</p>
-                <button className="admin-dash-delete-btn">Delete</button>
+                <p className="admin-dash-label">
+                  {x.email} ({x.username})
+                </p>
+                <button
+                  className="admin-dash-delete-btn"
+                  onClick={() => deleteUserHandler(x._id)}
+                >
+                  Delete
+                </button>
               </div>
             ))}
         </div>
