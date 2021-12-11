@@ -117,3 +117,11 @@ code {
 .likes-label {
   font-size: large;
 }
+.feedback-textarea {
+  width: 50%;
+  height: 100px;
+  border-radius: 20px;
+  border: 1px solid green;
+  outline: none;
+  font-size: medium;
+}

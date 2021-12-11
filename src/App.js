@@ -13,6 +13,7 @@ import Check from './components/test/Check'
 import NavBar from './components/NavBar'
 import { ToastContainer } from 'react-toastify'
 import AdminDashboard from './components/admin/AdminDashboard'
+import FeedBack from './components/FeedBack'
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
 
         <Route path="/addrecipe/:id" component={AddRecipes} />
         <Route path="/check" component={Check} />
+        <Route path="/feedback" component={FeedBack} />
         <Route path="/notfound" component={NotFound} />
 
         <Route path="/" component={Recipes} />

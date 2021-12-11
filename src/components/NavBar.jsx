@@ -48,8 +48,8 @@ function NavBar() {
         )}
 
         <li>
-          <Link to="/about" className="link-tag">
-            About
+          <Link to="/feedback" className="link-tag">
+            Feedback
           </Link>
         </li>
         {!currentUser && (

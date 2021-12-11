@@ -45,7 +45,7 @@ function AllUsers() {
               fontSize: '20px'
             }}
           >
-            Total Users{users.length}
+            Total Users {users.length}
           </h2>
         </center>
         <div className="admin-dash-allusers">

@@ -30,11 +30,11 @@ function RecipeView({
               (recipe.likes.includes(currentUser._id) ? (
                 <i
                   onClick={() => onDislike(recipe._id)}
-                  className="fas fa-heart fa-3x"
+                  className="fas fa-heart fa-2x"
                 ></i>
               ) : (
                 <i
-                  className="far fa-heart fa-3x"
+                  className="far fa-heart fa-2x"
                   onClick={() => onLike(recipe._id)}
                 ></i>
               ))}
