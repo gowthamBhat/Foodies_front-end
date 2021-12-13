@@ -4,7 +4,7 @@ import LocalStroageContainer from './../LocalStroageContainer'
 import { ToastContainer, toast } from 'react-toastify'
 import http from './../http'
 
-function ImageModel({ selectedImg, setSelectedImg }) {
+function ImageModel({ selectedImg, setSelectedImg, pageInWishList }) {
   console.log(selectedImg)
 
   let serverAddress = `http://localhost:8000/`
@@ -77,10 +77,14 @@ function ImageModel({ selectedImg, setSelectedImg }) {
           <p>making description</p>
           <p>{selectedImg.makingDescription}</p>
         </div>
-        <button className="btn" onClick={() => handleWishList(selectedImg._id)}>
-          Add to whishlist
-        </button>
-        <ToastContainer />
+        {!pageInWishList && (
+          <button
+            className="btn"
+            onClick={() => handleWishList(selectedImg._id)}
+          >
+            Add to whishlist
+          </button>
+        )}
       </div>
     </div>
   )

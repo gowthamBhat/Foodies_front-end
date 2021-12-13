@@ -41,7 +41,6 @@ export class Register extends React.Component {
 
     return (
       <div className="base-container">
-        <ToastContainer />
         {/* {this.state.error.email && (
           <div
             className="alert alert-danger"

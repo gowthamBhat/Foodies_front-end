@@ -97,8 +97,6 @@ function Recipes() {
 
   return (
     <div className="App">
-      <ToastContainer />
-
       {alert !== '' && <Alert alert={alert} />}
       <form
         onSubmit={onSubmit}

@@ -7,6 +7,7 @@ import ImageModel from './../Recipes/ImageModel'
 function WishList() {
   const [recipes, setrecipes] = useState([])
   const [selectedImg, setSelectedImg] = useState(null)
+  const pageInWishList = true //passing this variable to image model just to hide the wishlist button
   useEffect(() => {
     let jwt = LocalStroageContainer.getCurrentUser()
     // setcurrentUser(jwt)
@@ -51,7 +52,11 @@ function WishList() {
         )}
       </div>
       {selectedImg && (
-        <ImageModel selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
+        <ImageModel
+          selectedImg={selectedImg}
+          setSelectedImg={setSelectedImg}
+          pageInWishList={pageInWishList}
+        />
       )}
     </div>
   )

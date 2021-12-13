@@ -177,8 +177,6 @@ function AddRecipes(props) {
 
   return (
     <div className="recipeForm App">
-      <ToastContainer />
-
       <form
         className="recipe-form"
         style={{

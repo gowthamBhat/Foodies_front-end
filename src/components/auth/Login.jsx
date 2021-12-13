@@ -40,7 +40,6 @@ export class Login extends React.Component {
 
     return (
       <div className="base-container">
-        <ToastContainer />
         {/* {error.email && (
           <div
             className="alert alert-danger"

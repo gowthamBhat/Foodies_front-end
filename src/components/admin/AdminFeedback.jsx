@@ -12,15 +12,14 @@ function Feedback() {
   }
 
   return (
-    <div>
-      <h1>admin Feedback form</h1>
+    <div className="admin-feedback-parent-container">
       {feedbacks &&
         feedbacks.map((x) => (
-          <div key={uuidv4()}>
-            <p>
+          <div key={uuidv4()} className="admin-feedback-container">
+            <p className="admin-feedback-emailpassword-container">
               {x.email} ({x.username})
             </p>
-            <p>{x.feedbackText}</p>
+            <p className="admin-feedbacktext-container">{x.feedbackText}</p>
           </div>
         ))}
     </div>

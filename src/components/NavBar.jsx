@@ -46,12 +46,14 @@ function NavBar() {
             </Link>
           </li>
         )}
+        {!LocalStroageContainer.isAdmin() && currentUser && (
+          <li>
+            <Link to="/feedback" className="link-tag">
+              Feedback
+            </Link>
+          </li>
+        )}
 
-        <li>
-          <Link to="/feedback" className="link-tag">
-            Feedback
-          </Link>
-        </li>
         {!currentUser && (
           <li style={{ float: 'right', cursor: 'pointer' }}>
             <Link to="/login" className="link-tag">
