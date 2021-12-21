@@ -1,7 +1,7 @@
 import React from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import LocalStroageContainer from './../LocalStroageContainer'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import http from './../http'
 
 function ImageModel({ selectedImg, setSelectedImg, pageInWishList }) {
@@ -85,6 +85,7 @@ function ImageModel({ selectedImg, setSelectedImg, pageInWishList }) {
             Add to whishlist
           </button>
         )}
+        <button className="btn-report">Report</button>
       </div>
     </div>
   )

@@ -74,6 +74,18 @@ function NavBar() {
             </span>
           </li>
         )}
+        {currentUser && (
+          <li style={{ cursor: 'pointer' }}>
+            <span
+              className="link-tag"
+              onClick={() => {
+                window.open('http://localhost:3000', '_blank')
+              }}
+            >
+              Chat
+            </span>
+          </li>
+        )}
       </ul>
     </div>
   )

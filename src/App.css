@@ -238,6 +238,17 @@ html {
   transition: all 250ms ease-in-out;
   cursor: pointer;
 }
+.btn-report {
+  font-size: 21px;
+  padding: 5px 20px;
+  margin: 5px;
+  border: 0;
+  background-color: #cc1818;
+  color: #fff;
+  border-radius: 3px;
+
+  cursor: pointer;
+}
 .btn:hover {
   background-color: #5cb3ec;
 }

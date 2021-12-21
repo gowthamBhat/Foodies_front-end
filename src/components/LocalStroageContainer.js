@@ -17,6 +17,7 @@ function isAdmin() {
   try {
     const embeddedToken = localStorage.getItem(tokenKey)
     let data = jwt(embeddedToken)
+
     return data.isAdmin
   } catch (error) {
     return null

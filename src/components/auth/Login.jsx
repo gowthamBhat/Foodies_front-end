@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React from 'react'
 import LocalStroageContainer from './../LocalStroageContainer'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 export class Login extends React.Component {
   state = {
     account: { email: '', password: '' },
