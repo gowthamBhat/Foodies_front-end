@@ -101,7 +101,7 @@ html {
   margin: 2rem;
   display: flex;
   flex-direction: column;
-  background-color: #04aa6d;
+  background-color: #d3d3d3;
   padding: 1rem;
   position: relative;
   border-radius: 20px;
@@ -110,15 +110,16 @@ html {
 
 .recipe h2 {
   background-color: rgba(161, 161, 161, 0.7);
-  border-radius: 0.5rem;
+  border-radius: 13px;
   padding: 0.3rem 0.5rem;
   position: absolute;
-  top: 2.5rem;
+  top: 3.5rem;
   left: 2.5rem;
   right: 2.5rem;
   font-size: 2.5rem;
   font-weight: 400;
   text-shadow: 0 0.5rem 0.5rem #555;
+  border: 2px solid black;
   color: #fff;
 }
 

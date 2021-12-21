@@ -8,7 +8,8 @@ import ImageModel from './ImageModel'
 import RecipeView from './RecipeView'
 
 import LocalStroageContainer from './../LocalStroageContainer'
-import { toast, ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
+import CategoryBar from './CategoryBar'
 
 function Recipes() {
   const [query, setQuery] = useState('')
@@ -94,6 +95,21 @@ function Recipes() {
     e.preventDefault()
     getSearchResults()
   }
+  const onCategoryClick = async (cname) => {
+    try {
+      if (cname === 'all') {
+        getData()
+        return
+      }
+
+      const { data } = await Axios.get(
+        `http://localhost:8000/recipe/category/${cname}`
+      )
+      setRecipes(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   return (
     <div className="App">
@@ -118,6 +134,9 @@ function Recipes() {
           style={{ backgroundColor: '#333333' }}
         />
       </form>
+      <div>
+        <CategoryBar onCategoryClick={onCategoryClick} />
+      </div>
       <div className="recipes">
         {recipes !== [] && (
           <RecipeView

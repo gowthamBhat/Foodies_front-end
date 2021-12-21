@@ -3,13 +3,16 @@ import { v4 as uuidv4 } from 'uuid'
 import LocalStroageContainer from './../LocalStroageContainer'
 import { toast } from 'react-toastify'
 import http from './../http'
-
+import Moment from 'react-moment'
 function ImageModel({ selectedImg, setSelectedImg, pageInWishList }) {
   console.log(selectedImg)
 
   let serverAddress = `http://localhost:8000/`
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) setSelectedImg(null)
+  }
+  const onReport = async (id) => {
+    console.log('id reported', id)
   }
   const handleWishList = async (recipe_id) => {
     try {
@@ -38,6 +41,7 @@ function ImageModel({ selectedImg, setSelectedImg, pageInWishList }) {
 
       <div className="model-recipe-info">
         <div className="model-recipe-content">
+          <Moment fromNow>{selectedImg.createdAt}</Moment>
           <p className="model-recipeLabel">{selectedImg.label}</p>
           <p>author-{selectedImg.authorUsername} </p>
           <p>Recipe Source:{selectedImg.source}</p>
@@ -69,11 +73,9 @@ function ImageModel({ selectedImg, setSelectedImg, pageInWishList }) {
             <span key={uuidv4()}>{x + ' '}</span>
           ))}
           <p>
-            <i> cuisine type</i>
+            <i> cuisine type</i>- {selectedImg.cuisineType}
           </p>
-          {selectedImg.cuisineType.map((x) => (
-            <span key={uuidv4()}>{x + ' '}</span>
-          ))}
+
           <p>making description</p>
           <p>{selectedImg.makingDescription}</p>
         </div>
@@ -85,7 +87,12 @@ function ImageModel({ selectedImg, setSelectedImg, pageInWishList }) {
             Add to whishlist
           </button>
         )}
-        <button className="btn-report">Report</button>
+        <button
+          className="btn-report"
+          onClick={() => onReport(selectedImg._id)}
+        >
+          Report
+        </button>
       </div>
     </div>
   )

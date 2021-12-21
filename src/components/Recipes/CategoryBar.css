@@ -1,0 +1,27 @@
+.categorybar-head {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+
+  width: 500px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  background-color: #333333;
+  border-radius: 20px;
+}
+.categorybar-nodes {
+  font-size: medium;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  text-transform: capitalize;
+  border-right: 1px solid white;
+  padding-right: 4px;
+}
+.category-Container {
+  margin-top: -40px;
+}

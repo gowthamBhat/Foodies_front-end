@@ -2,21 +2,29 @@ import React, { useState, useEffect } from 'react'
 import './AddRecipes.css'
 import { v4 as uuidv4 } from 'uuid'
 import LocalStroageContainer from './../LocalStroageContainer'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 import { getRecipe, saveRecipe } from './RecipeServices'
-import NavBar from './../NavBar'
 
 function AddRecipes(props) {
+  //main state
   const [state, setstate] = useState({
     label: '',
     source: '',
     dietlabels: [],
     healthlabels: [],
-    cuisineType: [],
+    cuisineType: '',
     ingredients: [],
     mealType: [],
     makingDescription: '',
     recipeImage: null
+  })
+  //secondary state
+  const [arrayState, arraySetSate] = useState({
+    dietlabels: '',
+    healthlabels: '',
+    // cuisineType: '',
+    ingredients: { text: '', weight: '' },
+    mealType: ''
   })
 
   //state to save current user details
@@ -92,14 +100,6 @@ function AddRecipes(props) {
     }
   }
 
-  const [arrayState, arraySetSate] = useState({
-    dietlabels: '',
-    healthlabels: '',
-    cuisineType: '',
-    ingredients: { text: '', weight: '' },
-    mealType: ''
-  })
-
   const subIngredientStatePush = (event) => {
     let replica = { ...arrayState }
     replica.ingredients[event.target.name] = event.target.value
@@ -140,14 +140,14 @@ function AddRecipes(props) {
     arrayreplica.healthlabels = ''
     arraySetSate(arrayreplica)
   }
-  const addcuisineType = () => {
-    let replica = { ...state }
-    let arrayreplica = { ...arrayState }
-    replica.cuisineType.push(arrayState.cuisineType)
-    setstate(replica)
-    arrayreplica.cuisineType = ''
-    arraySetSate(arrayreplica)
-  }
+  // const addcuisineType = () => {
+  //   let replica = { ...state }
+  //   let arrayreplica = { ...arrayState }
+  //   replica.cuisineType.push(arrayState.cuisineType)
+  //   setstate(replica)
+  //   arrayreplica.cuisineType = ''
+  //   arraySetSate(arrayreplica)
+  // }
   const addmealType = () => {
     let replica = { ...state }
     let arrayreplica = { ...arrayState }
@@ -212,6 +212,27 @@ function AddRecipes(props) {
           onChange={stringTypeFieldDataHandler}
           className="inputs"
         />
+        <label className="addrecipe-labels" htmlFor="cuisineType">
+          cuisine type
+        </label>
+        <div className="addrecipe-fields-arraytypes">
+          <input
+            type="text"
+            id="cuisineType"
+            value={state.cuisineType}
+            onChange={stringTypeFieldDataHandler}
+            name="cuisineType"
+            placeholder="enter cuisine"
+            className="inputs"
+          />
+          {/* <button type="button" onClick={addcuisineType}>
+            Add
+          </button>
+          <button type="button" name="cuisineType" onClick={clearArrayFields}>
+            Clear
+          </button> */}
+          {/* {String(state.cuisineType)} */}
+        </div>
 
         <label className="addrecipe-labels" htmlFor="dietlabels">
           diet labels
@@ -255,27 +276,7 @@ function AddRecipes(props) {
           </button>
           {String(state.healthlabels)}
         </div>
-        <label className="addrecipe-labels" htmlFor="cuisineType">
-          cuisine type
-        </label>
-        <div className="addrecipe-fields-arraytypes">
-          <input
-            type="text"
-            id="cuisineType"
-            value={arrayState.cuisineType}
-            onChange={arrayElementSeparateStateHandler}
-            name="cuisineType"
-            placeholder="add cuisine"
-            className="inputs"
-          />
-          <button type="button" onClick={addcuisineType}>
-            Add
-          </button>
-          <button type="button" name="cuisineType" onClick={clearArrayFields}>
-            Clear
-          </button>
-          {String(state.cuisineType)}
-        </div>
+
         <label className="addrecipe-labels" htmlFor="mealtype">
           meal type
         </label>

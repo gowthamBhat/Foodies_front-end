@@ -12,7 +12,7 @@ export function saveRecipe(state, loggedUserDetails) {
   fd.append('dietlabels', JSON.stringify(state.dietlabels))
   fd.append('healthlabels', JSON.stringify(state.healthlabels))
   fd.append('ingredients', JSON.stringify(state.ingredients))
-  fd.append('cuisineType', JSON.stringify(state.cuisineType))
+  fd.append('cuisineType', state.cuisineType)
   fd.append('mealType', JSON.stringify(state.mealType))
   fd.append('makingDescription', state.makingDescription)
   if (state._id) {
@@ -26,7 +26,7 @@ export async function getRecipe(id) {
   const { data } = await Axios.get(`${endPoint}/byId/${id}`)
   return data
 }
-const getAllRecipes = async () => {
+export const getAllRecipes = async () => {
   const { data } = await Axios.get('http://localhost:8000/recipe')
   return data
 }

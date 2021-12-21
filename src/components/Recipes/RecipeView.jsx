@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { v4 as uuidv4 } from 'uuid'
-
+import Moment from 'react-moment'
 function RecipeView({
   recipes,
   setSelectedImg,
@@ -12,11 +12,23 @@ function RecipeView({
   currentUser
 }) {
   let serverAddress = `http://localhost:8000/`
+
   return (
     <>
       {recipes.map((recipe) => (
         <div className="recipe" key={uuidv4()}>
           <h2>{recipe.label}</h2>
+          <span
+            style={{
+              fontWeight: 'bold',
+              color: 'black',
+              marginBottom: '6px',
+              fontSize: '13px'
+            }}
+          >
+            <Moment fromNow>{recipe.createdAt}</Moment>
+          </span>
+
           <img
             src={serverAddress + recipe.url}
             alt={recipe.label}

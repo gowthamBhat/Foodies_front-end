@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import Axios from 'axios'
 import LocalStroageContainer from './LocalStroageContainer'
-import { jwt } from 'jwt-decode'
+// import { jwt } from 'jwt-decode'
 
 function FeedBack() {
   const [feed, setFeed] = useState('')
@@ -18,7 +18,7 @@ function FeedBack() {
   }
   const submitHandler = async () => {
     try {
-      const { data } = await Axios.post('http://localhost:8000/feedback', {
+      await Axios.post('http://localhost:8000/feedback', {
         feedbackText: feed,
         userId: currentUser._id,
         username: currentUser.name,
