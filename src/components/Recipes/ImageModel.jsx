@@ -4,15 +4,28 @@ import LocalStroageContainer from './../LocalStroageContainer'
 import { toast } from 'react-toastify'
 import http from './../http'
 import Moment from 'react-moment'
-function ImageModel({ selectedImg, setSelectedImg, pageInWishList }) {
-  console.log(selectedImg)
+function ImageModel({
+  selectedImg,
+  setSelectedImg,
+  pageInWishListPage,
+  currentUser
+}) {
+  // console.log(selectedImg)
 
   let serverAddress = `http://localhost:8000/`
   const handleClick = (e) => {
     if (e.target.classList.contains('backdrop')) setSelectedImg(null)
   }
   const onReport = async (id) => {
-    console.log('id reported', id)
+    try {
+      let report = await http.put(`http://localhost:8000/recipe/report/${id}`, {
+        id: id
+      })
+      toast.success('post reported')
+      console.log('reported post', report)
+    } catch (error) {
+      console.log('report error', error)
+    }
   }
   const handleWishList = async (recipe_id) => {
     try {
@@ -42,44 +55,85 @@ function ImageModel({ selectedImg, setSelectedImg, pageInWishList }) {
       <div className="model-recipe-info">
         <div className="model-recipe-content">
           <Moment fromNow>{selectedImg.createdAt}</Moment>
-          <p className="model-recipeLabel">{selectedImg.label}</p>
-          <p>author-{selectedImg.authorUsername} </p>
-          <p>Recipe Source:{selectedImg.source}</p>
-          <p>
-            <i> ingredients </i>
-          </p>
-          {selectedImg.ingredients.map((x) => (
-            <p key={uuidv4()}>
-              {x.text}:{x.weight}
-            </p>
-          ))}
+          <div className="model-recipeLabel">
+            <p>{selectedImg.label}</p>
+          </div>
+          <div className="model-info-container">
+            <div className="model-author">
+              <p>author-{selectedImg.authorUsername} </p>
+            </div>
+            <div className="model-source">
+              {' '}
+              <p>Recipe Source:{selectedImg.source}</p>
+            </div>
+            <div className="model-ingredients">
+              <p>
+                <i style={{ color: 'aqua', fontWeight: 'bolder' }}>
+                  {' '}
+                  Ingredients{' '}
+                </i>
+              </p>
+              {selectedImg.ingredients.map((x) => (
+                <p key={uuidv4()}>
+                  {x.text}:{x.weight}
+                </p>
+              ))}
+            </div>
 
-          <p>
-            <i> dietLabels</i>
-          </p>
-          {selectedImg.dietLabels.map((x) => (
-            <span key={uuidv4()}>{x + ' '}</span>
-          ))}
-          <p>
-            <i> healthLabels</i>
-          </p>
-          {selectedImg.healthLabels.map((x) => (
-            <span key={uuidv4()}>{x + ' '}</span>
-          ))}
-          <p>
-            <i> meal type</i>
-          </p>
-          {selectedImg.mealType.map((x) => (
-            <span key={uuidv4()}>{x + ' '}</span>
-          ))}
-          <p>
-            <i> cuisine type</i>- {selectedImg.cuisineType}
-          </p>
-
-          <p>making description</p>
-          <p>{selectedImg.makingDescription}</p>
+            <div className="model-dietlabels">
+              <p>
+                <i style={{ color: 'aqua', fontWeight: 'bolder' }}>
+                  {' '}
+                  dietLabels
+                </i>
+              </p>
+              {selectedImg.dietLabels.map((x) => (
+                <span key={uuidv4()}>{x + ' '}</span>
+              ))}
+            </div>
+            <div className="model-dietlabels">
+              {' '}
+              <p>
+                <i style={{ color: 'aqua', fontWeight: 'bolder' }}>
+                  {' '}
+                  healthLabels
+                </i>
+              </p>
+              {selectedImg.healthLabels.map((x) => (
+                <span key={uuidv4()}>{x + ' '}</span>
+              ))}
+            </div>
+            <div className="model-dietlabels">
+              {' '}
+              <p>
+                <i style={{ color: 'aqua', fontWeight: 'bolder' }}>
+                  {' '}
+                  meal type
+                </i>
+              </p>
+              {selectedImg.mealType.map((x) => (
+                <span key={uuidv4()}>{x + ' '}</span>
+              ))}
+            </div>
+            <div className="model-dietlabels">
+              <p>
+                <i style={{ color: 'aqua', fontWeight: 'bolder' }}>
+                  {' '}
+                  cuisine type
+                </i>
+                - {selectedImg.cuisineType}
+              </p>
+            </div>
+            <div className="model-makingdescription">
+              <p style={{ color: 'aqua', fontWeight: 'bolder' }}>
+                making description
+              </p>
+              <p>{selectedImg.makingDescription}</p>
+            </div>
+          </div>
         </div>
-        {!pageInWishList && (
+
+        {!pageInWishListPage && currentUser && !currentUser.isAdmin && (
           <button
             className="btn"
             onClick={() => handleWishList(selectedImg._id)}
@@ -87,12 +141,14 @@ function ImageModel({ selectedImg, setSelectedImg, pageInWishList }) {
             Add to whishlist
           </button>
         )}
-        <button
-          className="btn-report"
-          onClick={() => onReport(selectedImg._id)}
-        >
-          Report
-        </button>
+        {currentUser && !currentUser.isAdmin && (
+          <button
+            className="btn-report"
+            onClick={() => onReport(selectedImg._id)}
+          >
+            Report
+          </button>
+        )}
       </div>
     </div>
   )

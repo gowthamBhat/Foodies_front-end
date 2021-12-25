@@ -64,7 +64,11 @@ function AllRecipes() {
       </div>
 
       {selectedImg && (
-        <ImageModel selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
+        <ImageModel
+          selectedImg={selectedImg}
+          setSelectedImg={setSelectedImg}
+          isAdmin={true}
+        />
       )}
     </div>
   )

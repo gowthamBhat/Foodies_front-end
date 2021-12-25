@@ -25,14 +25,14 @@ function NavBar() {
             Home
           </Link>
         </li>
-        {currentUser && (
+        {currentUser && !currentUser.isAdmin && (
           <li style={{ cursor: 'pointer' }}>
             <Link className="link-tag" to="/dashboard">
               Profile
             </Link>
           </li>
         )}
-        {currentUser && (
+        {currentUser && !currentUser.isAdmin && (
           <li style={{ cursor: 'pointer' }}>
             <Link className="link-tag" to="/addrecipe/new">
               Add Recipe
@@ -79,7 +79,7 @@ function NavBar() {
             <span
               className="link-tag"
               onClick={() => {
-                window.open('http://localhost:3000', '_blank')
+                window.open('http://localhost:3500', '_blank')
               }}
             >
               Chat

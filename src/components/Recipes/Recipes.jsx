@@ -149,7 +149,11 @@ function Recipes() {
         )}
       </div>
       {selectedImg && (
-        <ImageModel selectedImg={selectedImg} setSelectedImg={setSelectedImg} />
+        <ImageModel
+          selectedImg={selectedImg}
+          currentUser={currentUser}
+          setSelectedImg={setSelectedImg}
+        />
       )}
     </div>
   )

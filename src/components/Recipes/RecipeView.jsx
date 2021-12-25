@@ -9,7 +9,8 @@ function RecipeView({
   updateHandler,
   onLike,
   onDislike,
-  currentUser
+  currentUser,
+  ignore
 }) {
   let serverAddress = `http://localhost:8000/`
 
@@ -50,8 +51,6 @@ function RecipeView({
                   onClick={() => onLike(recipe._id)}
                 ></i>
               ))}
-            {/* <button onClick={() => onDislike(recipe._id)}>Dislike</button> */}
-            {/* <button onClick={() => onLike(recipe._id)}>Like</button> */}
 
             {currentUser && (
               <div style={{ display: 'flex', gap: '5px' }}>
@@ -62,30 +61,34 @@ function RecipeView({
               </div>
             )}
           </div>
-
-          {(deleteHandler || updateHandler) && (
-            <div className="recipe-handle-button-container">
-              {updateHandler && (
+          <div className="recipe-handle-button-container">
+            {(deleteHandler || updateHandler) && (
+              <div>
+                {updateHandler && (
+                  <button
+                    onClick={() => {
+                      updateHandler(recipe._id)
+                    }}
+                  >
+                    Update
+                  </button>
+                )}
                 <button
                   onClick={() => {
-                    updateHandler(recipe._id)
+                    deleteHandler(recipe._id)
                   }}
                 >
-                  Update
+                  Delete
                 </button>
+              </div>
+            )}
+            <div>
+              {' '}
+              {ignore && (
+                <button onClick={() => ignore(recipe._id)}>ignore</button>
               )}
-              <button
-                onClick={() => {
-                  deleteHandler(recipe._id)
-                }}
-              >
-                Delete
-              </button>
             </div>
-          )}
-
-          {/* <button onClick={() => setShow(!show)}>Ingredients</button> */}
-          {/* {show && <RecipeDetails ingredients={recipe.ingredients} />} */}
+          </div>
         </div>
       ))}
     </>

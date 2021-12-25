@@ -14,9 +14,13 @@ code {
 /* modal styles */
 .backdrop {
   position: fixed;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: stretch;
+  justify-content: center;
+  align-content: center;
+  /* grid-template-columns: 1fr 1fr; */
+  /* grid-column-gap: 20px; */
   top: 0;
   left: 0;
   width: 100%;
@@ -27,8 +31,8 @@ code {
   border-radius: 20px;
   display: block;
   margin: 10px 10px;
-  max-width: 80%;
-  max-height: 80%;
+  max-width: 100%;
+  max-height: 100%;
   /* padding: 20px 0; */
   /* margin: 60px 42%; */
   box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
@@ -41,6 +45,7 @@ code {
   max-width: 60%;
   max-height: 80%;
   margin: 10px 10px;
+  flex-grow: 1;
   /* margin-top: 50px;
   margin-left: 0; */
 
@@ -48,21 +53,68 @@ code {
   padding: 20px 5px;
   box-shadow: 3px 5px 7px rgba(0, 0, 0, 0.5);
   border: 3px solid white;
+  background-color: #333;
+  opacity: 0.8;
 }
-.model-recipeLabel {
-  color: aliceblue;
-
-  font-size: x-large;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  font-weight: 550;
-}
+/* image model */
 .model-recipe-content {
   margin-top: 2px;
   padding: 5px 5px;
+  margin-left: 10px;
   color: aliceblue;
   font-size: medium;
   word-wrap: break-word;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  text-transform: capitalize;
+
+  /* border-radius: 10px; */
+}
+@media screen and (max-width: 826px) {
+  .backdrop {
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+  }
+}
+
+.model-recipeLabel {
+  color: aliceblue;
+  font-size: 70px;
+  color: aqua;
+  font-weight: 550;
+}
+.model-author {
+  font-size: 25px;
+  color: aqua;
+  font-weight: 500;
+  border-top: 1px solid wheat;
+}
+.model-source {
+  font-size: 20px;
+
+  font-weight: 500;
+}
+.model-ingredients {
+  font-size: 20px;
+  font-weight: 500;
+  border: 1px solid aqua;
+  margin: 10px 2px;
+  padding: 2px 7px;
+  border-radius: 10px;
+}
+.model-dietlabels {
+  font-size: 18px;
+  font-weight: 400;
+}
+.model-makingdescription {
+  font-size: 18px;
+  font-weight: 400;
+  overflow-y: auto;
 }
 .userdash-nav {
   display: flex;
@@ -131,6 +183,16 @@ code {
   border-bottom: 2px solid green;
   align-items: center;
 }
+.admin-feedback-container button {
+  font-size: 15px;
+  text-transform: uppercase;
+  color: #fff;
+  background-color: #000000;
+  border: none;
+  border-radius: 0.5rem;
+  height: 3rem;
+  width: 7rem;
+}
 .admin-feedback-emailpassword-container {
   font-size: medium;
   width: 70rem;
@@ -147,4 +209,10 @@ code {
 }
 .admin-feedback-parent-container {
   margin-top: 20px;
+}
+.Reported-recipes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
 }
