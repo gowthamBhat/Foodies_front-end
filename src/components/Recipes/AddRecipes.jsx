@@ -26,7 +26,45 @@ function AddRecipes(props) {
     ingredients: { text: '', weight: '' },
     mealType: ''
   })
+  //form validation
+  const validate = (formData) => {
+    const errors = {}
 
+    if (!formData.label || formData.label.length === 0) {
+      errors.label = 'label field empty'
+    }
+
+    if (!formData.source || formData.source.length === 0) {
+      errors.source = 'source field empty'
+    }
+
+    if (formData.dietlabels.length === 0) {
+      errors.dietlabels = 'dietlabels field empty'
+    }
+    if (formData.healthlabels.length === 0) {
+      errors.healthlabels = 'healthlabels field empty'
+    }
+    if (!formData.cuisineType || formData.cuisineType.length === 0) {
+      errors.cuisineType = 'cuisineType field empty'
+    }
+    if (formData.ingredients.length === 0) {
+      errors.ingredients = 'ingredients field empty'
+    }
+    if (formData.mealType.length === 0) {
+      errors.mealType = 'mealType field empty'
+    }
+
+    if (
+      !formData.makingDescription ||
+      formData.makingDescription.length === 0
+    ) {
+      errors.makingDescription = 'makingDescription field empty'
+    }
+    if (!formData.recipeImage === null) {
+      errors.recipeImage = 'choose an image'
+    }
+    return errors
+  }
   //state to save current user details
   const [loggedUserDetails, setLoggedUserDetails] = useState({
     authorUsername: '',
@@ -87,6 +125,11 @@ function AddRecipes(props) {
 
   const onFormSubmit = async (e) => {
     e.preventDefault()
+    const hasError = validate(state)
+    if (Object.getOwnPropertyNames(hasError).length !== 0) {
+      toast.error('fill all fields')
+      return
+    }
 
     try {
       const response = await saveRecipe(state, loggedUserDetails)
@@ -140,14 +183,7 @@ function AddRecipes(props) {
     arrayreplica.healthlabels = ''
     arraySetSate(arrayreplica)
   }
-  // const addcuisineType = () => {
-  //   let replica = { ...state }
-  //   let arrayreplica = { ...arrayState }
-  //   replica.cuisineType.push(arrayState.cuisineType)
-  //   setstate(replica)
-  //   arrayreplica.cuisineType = ''
-  //   arraySetSate(arrayreplica)
-  // }
+
   const addmealType = () => {
     let replica = { ...state }
     let arrayreplica = { ...arrayState }

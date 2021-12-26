@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios'
 import LocalStroageContainer from './../LocalStroageContainer'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'react-toastify'
 export class Register extends React.Component {
   state = {
     account: { username: '', password: '', phone: '', email: '' },
@@ -14,6 +14,24 @@ export class Register extends React.Component {
   }
   onRegisterClick = async () => {
     const { username, phone, password, email } = this.state.account
+
+    if (
+      !email ||
+      email.length === 0 ||
+      !password ||
+      password.length === 0 ||
+      !username ||
+      username.length === 0 ||
+      isNaN(phone) ||
+      phone.length !== 10
+    ) {
+      toast.error('fill all the fields or some fields are not valid')
+      return
+    }
+    // if (isNaN(phone) || phone.length !== 10) {
+    //   toast.error('phone number is not valid')
+    //   return
+    // }
 
     try {
       const response = await axios.post('http://localhost:8000/signup', {

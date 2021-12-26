@@ -15,6 +15,11 @@ export class Login extends React.Component {
   }
   onSubmitLogin = async () => {
     const { email, password } = this.state.account
+    if (!email || email.length === 0 || !password || password.length === 0) {
+      toast.error('fill all the fields')
+      return
+    }
+
     try {
       const response = await axios.post('http://localhost:8000/login', {
         email,
